@@ -1,8 +1,10 @@
+import { authService } from 'fbase';
 import React, { useState } from 'react';
 
 const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [newAccount, setNewAccount] = useState(true);
   const onChange = (event) => {
     const {
       target: { name, value },
@@ -16,8 +18,22 @@ const Auth = () => {
   //   const [form, setForm] = useState({ email: '', password: '' });
   //   const onChange = ({ target: { name, value } }) =>
   //     setForm({ ...form, [name]: value });   // name에 대괄호는 computed property name
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
+    try {
+      let data;
+      if (newAccount) {
+        data = await authService.createUserWithEmailAndPassword(
+          email,
+          password
+        );
+      } else {
+        data = await authService.signInWithEmailAndPassword(email, password);
+      }
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div>
@@ -38,7 +54,7 @@ const Auth = () => {
           value={password}
           onChange={onChange}
         />
-        <input type='submit' value='Log In' />
+        <input type='submit' value={newAccount ? 'Create Account' : 'Log In'} />
       </form>
       <div>
         <button>Continue with Google</button>
