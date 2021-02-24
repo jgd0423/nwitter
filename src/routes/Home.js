@@ -36,7 +36,7 @@ const Home = ({ userObj }) => {
 
     await dbService.collection('nweets').add(nweetObj);
     setNweet('');
-    setAttachment('');
+    onClearPhoto();
   };
   const onChange = (event) => {
     const {
