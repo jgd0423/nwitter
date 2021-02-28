@@ -50,7 +50,11 @@ const NweetFactory = ({ userObj }) => {
     };
     reader.readAsDataURL(theFile);
   };
-  const onClearAttachment = () => setAttachment('');
+  const onClearPhoto = () => {
+    setAttachment('');
+    const imgInputTag = document.querySelector('#attach-file');
+    imgInputTag.value = '';
+  };
   return (
     <form onSubmit={onSubmit} className='factoryForm'>
       <div className='factoryInput__container'>
@@ -86,7 +90,7 @@ const NweetFactory = ({ userObj }) => {
               backgroundImage: attachment,
             }}
           />
-          <div className='factoryForm__clear' onClick={onClearAttachment}>
+          <div className='factoryForm__clear' onClick={onClearPhoto}>
             <span>Remove</span>
             <FontAwesomeIcon icon={faTimes} />
           </div>
