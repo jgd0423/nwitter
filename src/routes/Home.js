@@ -18,6 +18,7 @@ const Home = ({ userObj }) => {
         }));
         setNweets(nweetArray);
       });
+    return () => setNweets([]);
   }, []);
 
   return (
